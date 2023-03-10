@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect, useContext } from 'react'
 import ChatMessage from './ChatMessage'
 import { ChatContext } from '../context/chatContext'
-import { auth } from '../firebase'
 import Thinking from './Thinking'
 
 /**
@@ -15,8 +14,7 @@ const ChatView = () => {
   const options = ['ChatGPT', 'DALL·E']
   const [selected, setSelected] = useState(options[0])
   const [messages, addMessage, , , setLimit] = useContext(ChatContext)
-  const user = auth.currentUser.uid
-  const picUrl = auth.currentUser.photoURL || 'https://api.adorable.io/avatars/23/abott@adorable.png'
+  const picUrl = 'https://api.adorable.io/avatars/23/abott@adorable.png'
 
   /**
    * Scrolls the chat area to the bottom.
@@ -56,7 +54,7 @@ const ChatView = () => {
     const aiModel = selected
 
     const BASE_URL = process.env.REACT_APP_BASE_URL
-    const PATH = aiModel === options[0] ? 'davinci' : 'dalle'
+    const PATH = aiModel === options[0] ? '/chat' : '/chat'
     const POST_URL = BASE_URL + PATH
 
     setThinking(true)
@@ -68,19 +66,16 @@ const ChatView = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        prompt: newMsg,
-        user: user
-      })
+      body: newMsg,
     })
-
     const data = await response.json()
+    console.log("data is: ", data)
     setLimit(data.limit)
 
     console.log(response.status)
     if (response.ok) {
       // The request was successful
-      data.bot && updateMessage(data.bot, true, aiModel)
+      data && updateMessage(data, true, aiModel)
     } else if (response.status === 429) {
       setThinking(false)
     } else {

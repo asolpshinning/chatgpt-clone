@@ -4,30 +4,23 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/eyucoder/chatgpt-clone"
+    "url": "https://github.com/asolpshinning/chatgpt-clone"
   },
-  "author": {
-    "name": "eyucoder",
-    "email": "eyueldaniel0921@gmail.com",
-    "url": "https://github.com/eyucoder"
-  },
+
   "dependencies": {
-    "concurrently": "^7.6.0",
-    "firebase": "^9.15.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-firebase-hooks": "^5.1.1",
     "react-icons": "^4.7.1",
     "react-markdown": "^8.0.4",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-syntax-highlighter": "^15.5.0",
     "remark-gfm": "^3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "server": "nodemon ../server/server.js",
-    "dev": "concurrently \"npm start\" \"npm run server\"",
+    "dev": "npm start", 
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
